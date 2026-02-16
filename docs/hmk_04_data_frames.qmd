@@ -1,0 +1,142 @@
+---
+title: "Homework 04: Data frames and data wrangling"
+format: html
+editor: visual
+---
+
+Please read the entire chapter on data transformation from\
+[R for Data Science](https://r4ds.hadley.nz/data-transform) before starting this homework.
+
+This homework relies on the `nycflights13` package, which contains several data frames, including:
+
+-   `airlines`
+-   `airports`
+-   `flights`
+-   `planes`
+-   `weather`
+
+Loading `nycflights13` puts these data frames on the search path.
+
+------------------------------------------------------------------------
+
+## Setup
+
+### Load packages (do this every time)
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+Note - if you don't have these installed you will need to first install.packages('nycflights13')
+
+------------------------------------------------------------------------
+
+# Question 1: Filtering
+
+Make a plot of **air time vs distance** (air time on the y-axis, distance on the x-axis) for all flights that meet the following criteria:
+
+-   originate from LaGuardia airport (`"LGA"`)
+-   departed on the 16th of the month
+-   have a flight distance of less than 2000 miles
+
+## Your code
+
+```{r}
+# Filter flights according to the criteria above,
+# then make the required plot.
+flights_filt <- flights %>%
+  filter(
+    origin == "LGA",
+    day == 16,
+    distance < 2000,)
+
+ggplot( flights_filt, aes(x=distance, y=air_time))+
+  geom_point()
+```
+
+## Brief written response
+
+In 2–4 sentences, describe what you observe in the plot. (For example: Is the relationship roughly linear? Are there any clear outliers?)
+
+**Your answer here: The relationship is positively linear. The longer the distance, the longer the air time. Its also clustered which I assume is because their are only flights to a limited amount of other airports. There are some potential outliers, but nothing crazy.**
+
+------------------------------------------------------------------------
+
+# Question 2: Dealing with NAs
+
+Make a data frame of all rows of `flights` that have values for *both* `arr_time` and `dep_time` (i.e., neither value is `NA`).
+
+## Your code
+
+```{r}
+# Create a new data frame that removes rows where arr_time or dep_time is NA.
+
+flights_clean <- flights %>%
+  filter(!is.na(arr_time), !is.na(dep_time))
+```
+
+## Filtering NAs (conceptual)
+
+`ggplot()` will automatically remove `NA` values from a plot, but it emits a warning message about it. You *could* silence warnings using chunk options, but instead:
+
+### Brief written response
+
+Explain (in words) how you could prevent those `NA` values from appearing in the plot in the first place. You can add in (dep_delay, na.rm = TRUE) into the function in R. This would get rid of the NAs before ruing the function.
+
+**Your answer here:**
+
+------------------------------------------------------------------------
+
+# Question 3: Adding columns
+
+Create a data frame of **average flight speeds**, based on `air_time` and `distance`.
+
+Then make either:
+
+-   a histogram, **or**
+-   a density plot
+
+If you like, you may break the data out (e.g., by airline or another variable) in a way that you think makes sense.
+
+## Your code
+
+```{r}
+# Create a new column for average speed.
+# (Hint: think carefully about units — air_time is in minutes.)
+# Then make a histogram or density plot.
+
+flights_add <- flights |>
+  mutate(
+    speed = distance/air_time
+        )
+ggplot(flights_add, aes(x=speed, fill=carrier))+
+  geom_histogram()
+```
+
+## Brief written response
+
+Describe the main features of your speed distribution.
+
+**Your answer here: It shows that most flights fly at around 6 speed (I'm unsure of the units). I also grouped it by carrier which basically just shows that some airlines have more flights than others, but that most fly around the same speed.**
+
+------------------------------------------------------------------------
+
+# Rendering and submission (GitHub)
+
+Canvas contains the course GitHub link and instructions for **forking** the course repository.
+
+In this file, your job is to:
+
+1.  Complete the homework by adding code + written responses above.
+2.  Render this Quarto file to **HTML or PDF**.
+3.  Move the rendered file(s) to the /doc folder (note that, if you render to html you will also have to move your hmk_04_data_frames_files folder)
+4.  Add/commit both:
+    -   this edited `.qmd` file
+    -   the rendered output file(s) (HTML or PDF)
+5.  Push your changes to your fork on GitHub.
+6.  Open a Pull Request back to the course repository.
+
+## What to submit on Canvas
+
+On Canvas, submit a link to your GitHub fork repository (not files).

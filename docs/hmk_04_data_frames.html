@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="hmk_04_data_frames_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="hmk_04_data_frames_files/libs/quarto-html/anchor.min.js"></script>
 <link href="hmk_04_data_frames_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="hmk_04_data_frames_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="hmk_04_data_frames_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="hmk_04_data_frames_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="hmk_04_data_frames_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="hmk_04_data_frames_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -121,9 +121,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.6
 ✔ forcats   1.0.1     ✔ stringr   1.6.0
-✔ ggplot2   4.0.1     ✔ tibble    3.3.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.2
-✔ purrr     1.2.1     
+✔ ggplot2   4.0.1     ✔ tibble    3.3.0
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.2.0     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -147,13 +147,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="your-code">Your code</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter flights according to the criteria above,</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># then make the required plot.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># then make the required plot.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>flights_filt <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    origin <span class="sc">==</span> <span class="st">"LGA"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    day <span class="sc">==</span> <span class="dv">16</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    distance <span class="sc">&lt;</span> <span class="dv">2000</span>,)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( flights_filt, <span class="fu">aes</span>(<span class="at">x=</span>distance, <span class="at">y=</span>air_time))<span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 75 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hmk_04_data_frames_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="brief-written-response" class="level2">
 <h2 class="anchored" data-anchor-id="brief-written-response">Brief written response</h2>
 <p>In 2–4 sentences, describe what you observe in the plot. (For example: Is the relationship roughly linear? Are there any clear outliers?)</p>
-<p><strong>Your answer here:</strong></p>
+<p><strong>Your answer here: The relationship is positively linear. The longer the distance, the longer the air time. Its also clustered which I assume is because their are only flights to a limited amount of other airports. There are some potential outliers, but nothing crazy.</strong></p>
 <hr>
 </section>
 </section>
@@ -163,7 +182,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="your-code-1" class="level2">
 <h2 class="anchored" data-anchor-id="your-code-1">Your code</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new data frame that removes rows where arr_time or dep_time is NA.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new data frame that removes rows where arr_time or dep_time is NA.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>flights_clean <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(arr_time), <span class="sc">!</span><span class="fu">is.na</span>(dep_time))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="filtering-nas-conceptual" class="level2">
@@ -171,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>ggplot()</code> will automatically remove <code>NA</code> values from a plot, but it emits a warning message about it. You <em>could</em> silence warnings using chunk options, but instead:</p>
 <section id="brief-written-response-1" class="level3">
 <h3 class="anchored" data-anchor-id="brief-written-response-1">Brief written response</h3>
-<p>Explain (in words) how you could prevent those <code>NA</code> values from appearing in the plot in the first place.</p>
+<p>Explain (in words) how you could prevent those <code>NA</code> values from appearing in the plot in the first place. You can add in (dep_delay, na.rm = TRUE) into the function in R. This would get rid of the NAs before ruing the function.</p>
 <p><strong>Your answer here:</strong></p>
 <hr>
 </section>
@@ -189,15 +211,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="your-code-2" class="level2">
 <h2 class="anchored" data-anchor-id="your-code-2">Your code</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column for average speed.</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Hint: think carefully about units — air_time is in minutes.)</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then make a histogram or density plot.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new column for average speed.</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (Hint: think carefully about units — air_time is in minutes.)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then make a histogram or density plot.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>flights_add <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">speed =</span> distance<span class="sc">/</span>air_time</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(flights_add, <span class="fu">aes</span>(<span class="at">x=</span>speed, <span class="at">fill=</span>carrier))<span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9430 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hmk_04_data_frames_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="brief-written-response-2" class="level2">
 <h2 class="anchored" data-anchor-id="brief-written-response-2">Brief written response</h2>
 <p>Describe the main features of your speed distribution.</p>
-<p><strong>Your answer here:</strong></p>
+<p><strong>Your answer here: It shows that most flights fly at around 6 speed (I’m unsure of the units). I also grouped it by carrier which basically just shows that some airlines have more flights than others, but that most fly around the same speed.</strong></p>
 <hr>
 </section>
 </section>
@@ -208,7 +251,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Complete the homework by adding code + written responses above.</li>
 <li>Render this Quarto file to <strong>HTML or PDF</strong>.</li>
-<li>Move the rendered file(s) to the /doc folder - note that, if you render to html you will also have to add your hmk_04_data_frames.html</li>
+<li>Move the rendered file(s) to the /doc folder (note that, if you render to html you will also have to move your hmk_04_data_frames_files folder)</li>
 <li>Add/commit both:
 <ul>
 <li>this edited <code>.qmd</code> file</li>
